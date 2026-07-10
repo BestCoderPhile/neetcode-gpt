@@ -1,13 +1,14 @@
-class Solution:
-    def get_minimizer(self, iterations: int, learning_rate: float, init: int) -> float:
-        # Objective function: f(x) = x^2
-        # Derivative:         f'(x) = 2x
-        # Update rule:        x = x - learning_rate * f'(x)
-        # Round final answer to 5 decimal places
-        minimizer = init
+import numpy as np
+from numpy.typing import NDArray
 
-        for _ in range(iterations):
-            derivative = 2 * minimizer
-            minimizer = minimizer - learning_rate * derivative
-        return round(minimizer, 5)
+
+class Solution:
+
+    def softmax(self, z: NDArray[np.float64]) -> NDArray[np.float64]:
+        # z is a 1D NumPy array of logits
+        # Hint: subtract max(z) for numerical stability before computing exp
+        # return np.round(your_answer, 4)
+        shifted = z - np.max(z)
+        exps = np.exp(shifted)
+        return np.round(exps / np.sum(exps), 4)
         pass
